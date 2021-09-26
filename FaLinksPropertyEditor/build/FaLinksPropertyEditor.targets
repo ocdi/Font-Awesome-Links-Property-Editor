@@ -1,0 +1,27 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <FaLinksPropertyEditorContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\FaLinksPropertyEditor\**\*.*</FaLinksPropertyEditorContentFilesPath>
+    </PropertyGroup>
+
+    <Target Name="CopyFaLinksPropertyEditorAssets" BeforeTargets="Build">
+        <ItemGroup>
+            <FaLinksPropertyEditorContentFiles Include="$(FaLinksPropertyEditorContentFilesPath)" />
+        </ItemGroup>
+        <Message Text="Copying FaLinksPropertyEditor files: $(FaLinksPropertyEditorContentFilesPath) - #@(FaLinksPropertyEditorContentFiles->Count()) files"  Importance="high" />
+        <Copy
+            SourceFiles="@(FaLinksPropertyEditorContentFiles)"
+            DestinationFiles="@(FaLinksPropertyEditorContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\FaLinksPropertyEditor\%(RecursiveDir)%(Filename)%(Extension)')"
+            SkipUnchangedFiles="true" />
+
+    </Target>
+
+    <Target Name="ClearFaLinksPropertyEditorAssets" BeforeTargets="Clean">
+        <ItemGroup>
+            <FaLinksPropertyEditorDir Include="$(MSBuildProjectDirectory)\App_Plugins\FaLinksPropertyEditor\" />
+        </ItemGroup>
+        <Message Text="Clear old FaLinksPropertyEditor data"  Importance="high" />
+        <RemoveDir Directories="@(FaLinksPropertyEditorDir)"  />
+    </Target>
+
+</Project>

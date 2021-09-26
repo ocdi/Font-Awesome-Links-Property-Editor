@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Umbraco.Web.Models;
+using Umbraco.Cms.Core.Models;
 
 namespace FaLinksPropertyEditor.Models
 {

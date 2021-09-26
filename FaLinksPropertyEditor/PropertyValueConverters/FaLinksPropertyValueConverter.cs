@@ -3,11 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Umbraco.Core.Models.PublishedContent;
-using Umbraco.Core.PropertyEditors;
-using Umbraco.Web.Models;
-using Umbraco.Web.PublishedCache;
-
+using Umbraco.Cms.Core.Models;
+using Umbraco.Cms.Core.Models.PublishedContent;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.PublishedCache;
+using static Umbraco.Cms.Core.Constants;
 
 namespace FaLinksPropertyEditor.PropertyValueConverters
 {
@@ -70,20 +70,22 @@ namespace FaLinksPropertyEditor.PropertyValueConverters
 
                     if (dto.Udi != null)
                     {
-                        type = dto.Udi.EntityType == Umbraco.Core.Constants.UdiEntityType.Media
+                        type = dto.Udi.EntityType == UdiEntityType.Media
                             ? LinkType.Media
                             : LinkType.Content;
 
+                        if (!_publishedSnapshotAccessor.TryGetPublishedSnapshot(out var publishedSnapshot)) continue;
+
                         var content = type == LinkType.Media
-                            ? _publishedSnapshotAccessor.PublishedSnapshot.Media.GetById(preview, dto.Udi.Guid)
-                            : _publishedSnapshotAccessor.PublishedSnapshot.Content.GetById(preview, dto.Udi.Guid);
+                            ? publishedSnapshot.Media.GetById(preview, dto.Udi.Guid)
+                            : publishedSnapshot.Content.GetById(preview, dto.Udi.Guid);
 
                         if (content == null || content.ItemType == PublishedItemType.Element)
                         {
                             continue;
                         }
 
-                        url = content.Url;
+                        url = content.UrlSegment;
                     }
 
                     links.Add(

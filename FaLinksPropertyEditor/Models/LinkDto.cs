@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Umbraco.Core;
+using Umbraco.Cms.Core;
 
 namespace FaLinksPropertyEditor.Models
 {

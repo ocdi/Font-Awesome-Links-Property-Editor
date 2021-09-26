@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <ContentTargetFolders>.</ContentTargetFolders>
+        <Product>Font_Awesome_Links_Property_Editor</Product>
+        <PackageId>Font_Awesome_Links_Property_Editor</PackageId>
+        <Title>Font_Awesome_Links_Property_Editor</Title>
+        <Description>...</Description>
+        <Product>...</Product>
+        <PackageTags>umbraco plugin package</PackageTags>
+        <RootNamespace>Font_Awesome_Links_Property_Editor</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0-rc004"/>
+        <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0-rc004"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="App_Plugins\Font_Awesome_Links_Property_Editor\**\*.*">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+        </Content>
+        <None Include="build\**\*.*">
+            <Pack>True</Pack>
+            <PackagePath>buildTransitive</PackagePath>
+        </None>
+    </ItemGroup>
+</Project>
